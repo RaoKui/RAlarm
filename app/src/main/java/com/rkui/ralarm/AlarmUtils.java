@@ -35,7 +35,12 @@ public class AlarmUtils {
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                 hour, minute, second);
         Intent alarmIntent = new Intent(ALARM_INTENT);
+
         if (bundle != null) {
+            // 重复闹钟
+            bundle.putBoolean("isRepeat", true);
+            bundle.putInt("alarm_id", alarm_id);
+            bundle.putLong("time", getTime(calendar.getTimeInMillis()));
             alarmIntent.putExtras(bundle);
         }
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm_id, alarmIntent,
